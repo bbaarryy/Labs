@@ -1,3 +1,5 @@
+import math
+
 def get_ab(i20,u20):
     x_a,y_a,xy_a,x2_a =0,0,0,0
     y2_a = 0
@@ -16,9 +18,13 @@ def get_ab(i20,u20):
     y2_a /=10
 
     #print(xy_a/x2_a,r_a/10)
-    print(y2_a,x2_a)
-    #b = (xy_a - x_a * y_a)/(x2_a - x_a**2)
-    #print(b, (y_a - b * x_a))
+    #print(y2_a,x2_a)
+    
+    b = xy_a/x2_a
+    print(y2_a,x2_a,b)
+    print((1/(math.sqrt(10))) * (math.sqrt(y2_a/x2_a - b*b)))
+    
+    #print(xy_a/x2_a)
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -33,8 +39,8 @@ i50 = [144.7,102.7,118.6,73.4,59,47.2,30.3,26,27.5,22.2]
 u50 = [720,510,590,360,290,230,145,125,135,105]
 
 get_ab(i20,u20)
-get_ab(i30,u30)
-get_ab(i50,u50)
+# get_ab(i30,u30)
+# get_ab(i50,u50)
 
 err_i = [0.01]
 err_u = [1.25]
@@ -59,5 +65,5 @@ plt.plot(x3,y3)
 plt.xlabel("I, mA") # Подпись оси X
 plt.ylabel("U, mV") # Подпись оси Y
 plt.grid()
-plt.show()
-print(1)
+#plt.show()
+#print(1)
