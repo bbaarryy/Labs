@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
-import seaborn as sns
+#import seaborn as sns
+from docx import Document
 
-
-file = open("1.1.4\data.txt", "r")
+file = open("1.1.4/data.txt", "r")
 
 def get_arr(raw, q):
     i = 0
@@ -20,8 +20,6 @@ raw = []
 for line in file:
     raw.append(int(line))
 print(len(raw))
-
-arr20 = get_arr(raw,20)
 
 def print_table(arr, ln, doc):
     for e in range(0,len(arr),ln):
@@ -42,60 +40,67 @@ def print_table(arr, ln, doc):
 # print(ans)
 
 
-# from docx import Document
 
-# doc = Document()
+
+doc = Document()
+
+X = 20
+arr20 = get_arr(raw,X)
+table = doc.add_table(rows=X+1, cols=11)
+
+table.cell(0,0).text = "Опыт"
+for i in range(0,X):
+    table.cell(i+1,0).text = str(i*10)
+
+for i in range(0,10):
+    table.cell(0,i+1).text = str(i+1)
+
+
+for x in range(0,X):
+    for y in range(0,10):
+        table.cell(x+1,y+1).text = str(arr20[x*10+y])
+
+table.style = 'Light Shading Accent 1'
+doc.save('demo.docx')
+
+
 
 # arr20 = get_arr(raw,80)
-# average_20 = 0
-# summ = 0
-# for i in range(len(arr20)):
-#     average_20 += arr20[i]
-# average_20 /= len(arr20)
+# mx = max(arr20)
+
+# all = 0
+
+# x = [1]
+# for i in range(2,mx+1):
+#     x.append(i)
+# y = [0] * mx
 
 # for i in range(len(arr20)):
-#     summ += (arr20[i] - average_20)**2
-
-# print(average_20, len(arr20), (summ / len(arr20))**0.5)
-
-
-
-arr20 = get_arr(raw,80)
-mx = max(arr20)
-
-all = 0
-
-x = [1]
-for i in range(2,mx+1):
-    x.append(i)
-y = [0] * mx
-
-for i in range(len(arr20)):
-    if(arr20[i] != 0):
-        y[arr20[i]-1]+=1
-        all+=1
+#     if(arr20[i] != 0):
+#         y[arr20[i]-1]+=1
+#         all+=1
 
 # print_table(y,13,doc)
 
 
-# doc.save('demo.docx')
+#doc.save('demo.docx')
 
-for i in range(len(y)):
-    y[i] = y[i]/all
+# for i in range(len(y)):
+#     y[i] = y[i]/all
 
-ax = plt.gca()
-#ax.axes.xaxis.set_visible(False)
-vis = [""]
-# e = [""]
-for i in range(0,mx,10):
-    for j in range(9):
-        vis.append("")
-    vis.append(str(i+10))
-ax.set_xticklabels(vis)
-sns.barplot(x=x, y=y, color='blue')
-plt.xlabel("n") # Подпись оси X
-plt.ylabel("w") # Подпись оси Y
-plt.title('Гистограмма для t = 80') #Название
+# ax = plt.gca()
+# #ax.axes.xaxis.set_visible(False)
+# vis = [""]
+# # e = [""]
+# for i in range(0,mx,10):
+#     for j in range(9):
+#         vis.append("")
+#     vis.append(str(i+10))
+# ax.set_xticklabels(vis)
+# sns.barplot(x=x, y=y, color='blue')
+# plt.xlabel("n") # Подпись оси X
+# plt.ylabel("w") # Подпись оси Y
+# plt.title('Гистограмма для t = 80') #Название
 
 
-plt.show()
+# plt.show()
